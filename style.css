@@ -12,6 +12,22 @@
 }
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #c99b58 #2a140c;
+}
+html::-webkit-scrollbar {
+  width: 10px;
+}
+html::-webkit-scrollbar-track {
+  background: #2a140c;
+}
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f0cd83, #9a6736);
+  border: 2px solid #2a140c;
+  border-radius: 999px;
+}
+html::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffe2a2, #c99b58);
 }
 body {
   margin: 0;
@@ -247,7 +263,7 @@ h2 {
   gap: 8px;
 }
 .category-card {
-  height: 99px;
+  height: 132px;
   border: 1px solid #a67843;
   border-radius: 12px;
   overflow: hidden;
@@ -257,7 +273,47 @@ h2 {
   justify-content: center;
   text-decoration: none;
   color: #ffe3a8;
-  box-shadow: inset 0 -35px 30px #180d09b8;
+  box-shadow: inset 0 -45px 30px #180d09b8;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Reveal sections and cards as they enter the viewport. */
+.categories,
+.contact-section,
+.benefits,
+.site-footer,
+.category-card,
+.contact-card {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.category-card:nth-child(2),
+.contact-card:nth-child(2) { transition-delay: 0.08s; }
+.category-card:nth-child(3),
+.contact-card:nth-child(3) { transition-delay: 0.16s; }
+.category-card:nth-child(4),
+.contact-card:nth-child(4) { transition-delay: 0.24s; }
+.categories.is-visible,
+.contact-section.is-visible,
+.benefits.is-visible,
+.site-footer.is-visible,
+.category-card.is-visible,
+.contact-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .categories,
+  .contact-section,
+  .benefits,
+  .site-footer,
+  .category-card,
+  .contact-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 .category-card:after {
   content: "";
@@ -284,16 +340,81 @@ h2 {
 .category-card span {
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 14px);
+  min-height: 42px;
+  margin: 0 7px 7px;
+  padding: 6px 8px;
+  border: 1px solid rgba(240, 205, 131, 0.42);
+  border-radius: 10px;
+  background: rgba(29, 13, 7, 0.82);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   font-size: 14px;
   font-weight: 700;
-  padding: 0 4px 5px;
+  line-height: 1.5;
   text-align: center;
+  overflow-wrap: anywhere;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.55);
+}
+.category-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold-light);
+  box-shadow: inset 0 -45px 30px #180d09b8, 0 8px 18px rgba(0, 0, 0, 0.28);
+}
+.products-section { padding-top: 24px; }
+.product-modal { position: fixed; inset: 0; z-index: 900; display: grid; place-items: center; padding: 18px; opacity: 0; visibility: hidden; pointer-events: none; background: rgba(16, 7, 4, .7); backdrop-filter: blur(7px); transition: opacity .25s ease, visibility .25s ease; }
+.product-modal:target { opacity: 1; visibility: visible; pointer-events: auto; }
+.product-modal-backdrop { position: absolute; inset: 0; }
+.product-dialog { position: relative; z-index: 1; width: min(100%, 440px); max-height: min(88vh, 640px); overflow-y: auto; overflow-x: hidden; direction: ltr; scrollbar-gutter: stable; padding: 42px 20px 22px; border: 1px solid rgba(240,205,131,.7); border-radius: 22px; background: radial-gradient(ellipse at 50% 0%, #58321e, #241109 78%); box-shadow: 0 24px 70px #000b, inset 0 1px rgba(255,255,255,.08); transform: translateY(16px) scale(.96); transition: transform .3s cubic-bezier(.2,.8,.2,1); scrollbar-width: thin; scrollbar-color: #c99b58 #2a140c; }
+.product-dialog > * { direction: rtl; }
+.product-dialog::-webkit-scrollbar { width: 10px; }
+.product-dialog::-webkit-scrollbar-track { background: #2a140c; border-radius: 999px; }
+.product-dialog::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #f0cd83, #9a6736); border: 2px solid #2a140c; border-radius: 999px; }
+.product-dialog::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #ffe2a2, #c99b58); }
+.product-modal:target .product-dialog { transform: translateY(0) scale(1); }
+.product-modal-close { position: absolute; top: 12px; right: 14px; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid rgba(240,205,131,.45); border-radius: 50%; color: #f6dfb1; text-decoration: none; font-size: 23px; line-height: 1; transition: background .2s, color .2s, transform .2s; }
+.product-modal-close:hover, .product-modal-close:focus-visible { background: #6b3b21; color: #fff5df; transform: rotate(90deg); outline: none; }
+.product-dialog .section-heading { margin-bottom: 8px; }
+.product-dialog .section-heading h2 { font-size: 20px; }
+.product-dialog .section-subtitle { margin-bottom: 16px; }
+.product-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.product-card { overflow: hidden; border: 1px solid rgba(166,120,67,.85); border-radius: 13px; background: linear-gradient(145deg, #4b2818, #28130c); color: #ffe3a8; box-shadow: 0 5px 14px #0003; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.product-card:hover { transform: translateY(-3px); border-color: #f0cd83; box-shadow: 0 9px 20px #0005; }
+.product-gallery { position: relative; }
+.product-card .product-main-image { display: block; width: 100%; height: 172px; object-fit: cover; }
+.product-thumbs { display: flex; justify-content: center; gap: 5px; padding: 7px 6px 6px; background: rgba(20,9,5,.72); }
+.product-thumbs img { width: 34px; height: 27px; object-fit: cover; border: 1px solid rgba(255,255,255,.65); border-radius: 5px; cursor: pointer; opacity: .86; transition: opacity .2s, transform .2s; }
+.product-thumbs img:hover { opacity: 1; transform: scale(1.08); }
+.product-card strong, .product-card small { display: block; padding-inline: 10px; }
+.product-card strong { padding-top: 9px; font-size: 13px; line-height: 1.5; }
+.product-card small { padding-top: 3px; padding-bottom: 11px; color: #cbb69d; font-size: 11px; }
+.products-reset { display: block; margin: 18px auto 0; padding: 9px 18px; border: 1px solid #a67843; border-radius: 999px; background: rgba(18,8,4,.3); color: #f0cd83; font: inherit; cursor: pointer; transition: background .2s, border-color .2s; }
+.products-reset:hover { background: #59301b; }
+.products-reset:focus-visible { outline: 2px solid #fff1ca; outline-offset: 3px; }
+body:has(.product-modal:target) { overflow: hidden; }
+@media (max-width: 420px) { .product-dialog { padding: 40px 14px 18px; border-radius: 19px; } .product-grid { gap: 8px; } }
+@media (max-width: 360px) { .product-card .product-main-image { height: 145px; } .product-card strong { font-size: 12px; } }
+@media (max-width: 380px) {
+  .category-card {
+    height: 124px;
+  }
+  .category-card span {
+    width: calc(100% - 10px);
+    margin-inline: 5px;
+    margin-bottom: 5px;
+    min-height: 40px;
+    padding-inline: 5px;
+    font-size: 13px;
+  }
 }
 .benefits {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px 12px;
-  padding: 16px 2px;
+  gap: 6px 10px;
+  padding: 9px 2px;
   color: #e4cfad;
   font-size: 13px;
 }
@@ -304,8 +425,8 @@ h2 {
 }
 .benefit-icon {
   color: #d8bc8b;
-  font-size: 21px;
-  width: 23px;
+  font-size: 18px;
+  width: 20px;
   text-align: center;
 }
 footer {
@@ -494,8 +615,8 @@ textarea {
   position: absolute;
   inset: -9px;
   background: url("assets/chocolate-hero.jpg") center 45% / cover no-repeat;
-  filter: blur(2px);
-  transform: scale(1.02);
+  filter: blur(6px);
+  transform: scale(1.06);
 }
 .hero-photo::after {
   content: "";
@@ -512,6 +633,7 @@ textarea {
   position: relative;
   z-index: 1;
   text-shadow: 0 2px 12px rgba(12, 5, 2, 0.55);
+  transform: translateY(-10px);
 }
 
 .hero {
@@ -579,7 +701,7 @@ textarea {
 }
 .brand-copy strong {
   display: block;
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 17px;
   line-height: 1.2;
   letter-spacing: 0.15px;
@@ -1558,4 +1680,66 @@ body:has(.about-modal:target) {
 .agency-credit strong {
   font-weight: 500;
   color: inherit;
+}
+
+/* Premium animated hero brand title */
+.hero h1 {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 3px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(32px, 8vw, 44px);
+  font-weight: 700;
+  letter-spacing: .2px;
+  font-synthesis: none;
+  line-height: 1.12;
+  background: linear-gradient(110deg, #fff0bd 8%, #f0cd83 38%, #fff8dc 50%, #c58b45 72%, #ffe7a1 94%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 3px 18px rgba(240, 205, 131, .2);
+  animation: brand-title-in .8s cubic-bezier(.2,.8,.2,1) both, brand-title-shine 5s ease-in-out 1s infinite;
+}
+@keyframes brand-title-in {
+  from { opacity: 0; transform: translateY(12px) scale(.96); letter-spacing: 4px; }
+  to { opacity: 1; transform: translateY(0) scale(1); letter-spacing: .2px; }
+}
+@keyframes brand-title-shine {
+  0%, 65%, 100% { background-position: 0% 50%; }
+  82% { background-position: 100% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero h1 { animation: none; }
+}
+
+/* Calm header logo: one subtle orbit instead of multiple competing rings. */
+.topbar .brand-mark::after {
+  display: none;
+}
+.topbar .brand-mark::before {
+  inset: -5px;
+  border: 1px solid rgba(240, 205, 131, 0.38);
+  border-top-color: transparent;
+  border-left-color: rgba(240, 205, 131, 0.16);
+  animation: brand-ring-rotate 14s linear infinite;
+}
+.topbar .brand-mark {
+  box-shadow: 0 0 0 1px rgba(240, 205, 131, 0.08);
+}
+.about-dialog .modal-emblem.brand-mark::after {
+  display: none;
+}
+.about-dialog .modal-emblem.brand-mark::before {
+  inset: -6px;
+  border: 1px solid rgba(240, 205, 131, 0.4);
+  border-top-color: transparent;
+  border-left-color: rgba(240, 205, 131, 0.16);
+  animation: brand-ring-rotate 16s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .topbar .brand-mark::before,
+  .about-dialog .modal-emblem.brand-mark::before {
+    animation: none;
+  }
 }
