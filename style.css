@@ -152,6 +152,14 @@ h2 {
   color: #e2d0bb;
   margin: 5px 0 15px;
 }
+.hero .intro {
+  max-width: 680px;
+  margin: 5px auto 15px;
+  padding-inline: 10px;
+  direction: rtl;
+  text-align: center;
+  line-height: 1.8;
+}
 .about-button {
   background: linear-gradient(110deg, #f1cf84, #bd8643);
   color: #32180d;
@@ -1355,6 +1363,33 @@ body:has(.about-modal:target) {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.about-dialog .modal-emblem.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.modal-section-title {
+  margin: 18px 0 8px;
+  color: #f2d28e;
+  font-size: 16px;
+}
+.modal-services {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0 20px 0 0;
+  color: #dcc8ae;
+  font-size: 14px;
+  line-height: 1.9;
+  text-align: right;
+}
+.modal-service-note {
+  margin: 12px 0 16px;
+  color: #fff0d7;
+  font-size: 14px;
+  line-height: 1.9;
+}
 
 .about-dialog {
   opacity: 0;
@@ -1707,6 +1742,13 @@ body:has(.about-modal:target) {
   transition: background .2s ease, transform .2s ease;
 }
 .brand:hover { background: rgba(240, 205, 131, .08); transform: translateY(-1px); }
+.brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
 .brand-mark { width: 42px; height: 42px; background: linear-gradient(145deg, #57301c, #28130c); box-shadow: inset 0 1px rgba(255,255,255,.12), 0 4px 12px rgba(0,0,0,.24); }
 .brand-copy strong { font-family: Georgia, "Times New Roman", serif; font-size: 18px; letter-spacing: .15px; color: #f3d48f; }
 .brand-copy small { margin-top: 2px; color: #cdb493; font-size: 10px; letter-spacing: .2px; }
@@ -1830,8 +1872,85 @@ body:has(.about-modal:target) {
 .featured-all-link:focus-visible { outline: 2px solid #f0cd83; outline-offset: 3px; }
 .products-page .product-card .product-main-image { object-fit: cover; object-position: center 44%; background: #28130c; }
 .products-page .product-card .portrait-product-image { object-position: center 44%; }
+.products-page .product-card { position: relative; }
+.products-page .product-gallery { position: relative; }
+.products-page .product-order-action {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: calc(100% - 20px);
+  min-height: 42px;
+  padding: 7px 12px 7px 9px;
+  border: 1px solid #f5dfa1;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f2d58a 0%, #d7ad59 55%, #bd8b3d 100%);
+  color: #34200f;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .48), inset 0 1px 0 rgba(255, 255, 255, .55);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 10px);
+  transition: opacity .2s ease, visibility .2s ease, transform .2s ease, background .2s ease;
+}
+.products-page .product-order-action svg {
+  flex: 0 0 auto;
+  width: 25px;
+  height: 25px;
+  padding: 4px;
+  border-radius: 50%;
+  background: #fff9e9;
+  fill: currentColor;
+  color: #168448;
+  box-sizing: border-box;
+}
+.products-page .product-card:hover .product-order-action,
+.products-page .product-card:focus-within .product-order-action,
+.products-page .product-card.is-order-visible .product-order-action {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+.products-page .product-order-action:hover,
+.products-page .product-order-action:focus-visible {
+  background: linear-gradient(135deg, #ffe9a8 0%, #e0b967 55%, #ca9647 100%);
+  color: #2b180a;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .54), inset 0 1px 0 rgba(255, 255, 255, .68);
+  outline: 2px solid #fff1c4;
+  outline-offset: 3px;
+}
 .products-page .scroll-to-top { position: fixed; z-index: 1000; right: max(16px, calc((100vw - 480px) / 2 + 18px)); bottom: max(18px, env(safe-area-inset-bottom)); display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid rgba(240,205,131,.78); border-radius: 50%; background: linear-gradient(145deg, #80512a, #3b2114); color: #fff1ca; box-shadow: 0 5px 16px #0006; cursor: pointer; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(8px); transition: opacity .2s ease, transform .2s ease, visibility .2s ease, background .2s ease; }
 .products-page .scroll-to-top.is-visible { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
 .products-page .scroll-to-top svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .products-page .scroll-to-top:hover, .products-page .scroll-to-top:focus-visible { background: linear-gradient(145deg, #a06a38, #543019); outline: 2px solid #f0cd83; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .products-page .scroll-to-top { transition: none; } }
+
+.about-page-card {
+  margin: 26px 0 18px;
+  padding: 28px 22px;
+  border: 1px solid rgba(201, 155, 88, .46);
+  border-radius: 20px;
+  background: linear-gradient(150deg, rgba(73, 41, 25, .92), rgba(36, 17, 9, .96));
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .24), inset 0 1px rgba(255,255,255,.04);
+}
+.about-page-kicker { margin: 0 0 6px; color: #d8b876; text-align: center; font-size: 14px; }
+.about-page-card h1 { margin: 0 0 12px; color: #f2d28e; text-align: center; font-size: 25px; line-height: 1.5; direction: rtl; }
+.about-page-intro { margin: 0 0 22px; color: #fff0d7; text-align: center; font-size: 15px; line-height: 2; }
+.about-page-card h2 { margin: 0 0 10px; color: #f2d28e; font-size: 18px; }
+.about-page-services { display: grid; gap: 8px; margin: 0; padding: 0 21px 0 0; color: #dcc8ae; font-size: 15px; line-height: 1.9; }
+.about-page-note { margin: 18px 0 22px; color: #fff0d7; font-size: 14px; line-height: 1.9; }
+.about-page-actions { display: grid; justify-items: center; gap: 12px; }
+.about-page-actions .modal-contact { margin: 0; }
+.about-page-back { color: #d8b876; font-size: 13px; text-decoration: none; }
+.about-page-back:hover, .about-page-back:focus-visible { color: #fff0ce; text-decoration: underline; }
