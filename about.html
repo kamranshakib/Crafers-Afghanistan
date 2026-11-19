@@ -12,11 +12,17 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=about-page-20261118-1" />
+    <link rel="stylesheet" href="style.css?v=shared-header-20261120-1" />
   </head>
   <body>
     <main class="phone-page about-page">
       <header class="topbar">
+        <nav class="home-desktop-nav" aria-label="ناوبری اصلی">
+          <a href="index.html#home">خانه</a>
+          <a href="products.html">محصولات</a>
+          <a class="is-current" href="about.html">درباره ما</a>
+          <a href="index.html#contact">تماس با ما</a>
+        </nav>
         <a class="brand" href="index.html" aria-label="بازگشت به صفحهٔ اصلی">
           <span class="brand-mark" aria-hidden="true"><img src="assets/logo/logo.jpeg" alt="" /></span>
           <span class="brand-copy">
@@ -24,6 +30,9 @@
             <small>Premium Sweets &amp; Chocolates</small>
           </span>
         </a>
+        <div class="home-tools" aria-label="دسترسی سریع">
+          <a class="home-tool-link" href="products.html" aria-label="جستجوی محصولات" title="جستجوی محصولات"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4.2 4.2"/></svg></a>
+        </div>
         <button class="menu-toggle" type="button" aria-label="باز کردن منو" aria-haspopup="dialog" aria-controls="site-menu"><span></span><span></span><span></span></button>
       </header>
       <div class="site-menu" id="site-menu" role="dialog" aria-modal="true" aria-labelledby="site-menu-title" hidden>
