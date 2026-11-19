@@ -28,14 +28,27 @@
             ><small>Premium Sweets &amp; Chocolates</small></span
           ></a
         >
+        <button class="menu-toggle" type="button" aria-label="باز کردن منو" aria-haspopup="dialog" aria-controls="site-menu"><span></span><span></span><span></span></button>
       </header>
+      <dialog class="site-menu" id="site-menu" aria-labelledby="site-menu-title">
+        <button class="site-menu-scrim" type="button" aria-label="بستن منو"></button>
+        <div class="site-menu-panel">
+        <div class="site-menu-head"><div><span class="menu-kicker">CRAFERS AFGHANISTAN</span><h2 id="site-menu-title">از کجا شروع کنیم؟</h2></div><button class="menu-close" type="button" aria-label="بستن منو">×</button></div>
+        <nav class="site-menu-links" aria-label="منوی اصلی">
+          <a href="index.html"><span class="menu-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg></span><span><strong>صفحهٔ اصلی</strong></span></a>
+          <a href="products.html"><span class="menu-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/></svg></span><span><strong>محصولات</strong></span></a>
+          <a href="about.html"><span class="menu-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.4 2.4 0 1 1 4.2 1.6c-1.2 1.1-1.9 1.4-1.9 3M12 17.2v.1"/></svg></span><span><strong>دربارهٔ ما</strong></span></a>
+          <a href="index.html#contact"><span class="menu-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-11.2 6.6L4 19l1.2-4.5A7.5 7.5 0 1 1 20 11.5Z"/><path d="M9 10h.01M12 10h.01M15 10h.01"/></svg></span><span><strong>ارتباط با ما</strong></span></a>
+          <a href="index.html#address"><span class="menu-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span><strong>آدرس فروشگاه</strong></span></a>
+        </nav>
+        <a class="menu-order" href="https://wa.me/93794370299" target="_blank" rel="noopener noreferrer"><span>برای سفارش آماده‌اید؟</span><strong>سفارش از واتساپ</strong></a>
+        </div>
+      </dialog>
       <div class="products-back">
-        <a
-          href="index.html"
-          aria-label="&#x628;&#x627;&#x632;&#x6af;&#x634;&#x62a; &#x628;&#x647; &#x635;&#x641;&#x62d;&#x647; &#x627;&#x635;&#x644;&#x6cc;"
-          ><svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M19 12H5m0 0 7-7m-7 7 7 7" /></svg
-        ></a>
+        <a href="index.html" aria-label="بازگشت به صفحهٔ اصلی">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z" /></svg>
+          <span>بازگشت به صفحهٔ اصلی</span>
+        </a>
       </div>
       <section
         class="products-section"
@@ -60,6 +73,7 @@
             autocomplete="off"
           />
         </div>
+        <p class="product-guide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V5a2 2 0 0 1 4 0v5-2a2 2 0 0 1 4 0v2a2 2 0 0 1 4 0v6a6 6 0 0 1-6 6h-2a6 6 0 0 1-5-2.7L3.5 15a2 2 0 0 1 3-2.6L8 14" /></svg>برای سفارش، روی محصول کلیک کنید.</p>
         <p class="search-empty" hidden>
           &#x645;&#x62d;&#x635;&#x648;&#x644;&#x6cc; &#x628;&#x627;
           &#x627;&#x6cc;&#x646; &#x646;&#x627;&#x645;
@@ -3092,7 +3106,7 @@
           const message = `سلام، می‌خواهم این محصول را از کرافرز افغانستان سفارش دهم:\nنام محصول: ${name}${description ? `\nتوضیحات: ${description}` : ""}`;
           const order = document.createElement("a");
           order.className = "product-order-action";
-          order.href = `https://wa.me/93795242337?text=${encodeURIComponent(message)}`;
+          order.href = `https://wa.me/93794370299?text=${encodeURIComponent(message)}`;
           order.target = "_blank";
           order.rel = "noopener noreferrer";
           order.setAttribute("aria-label", `سفارش ${name} در واتساپ`);
@@ -3101,23 +3115,61 @@
           gallery.appendChild(order);
           card.tabIndex = 0;
           card.setAttribute("role", "button");
+          card.setAttribute("aria-pressed", "false");
           card.setAttribute("aria-label", `نمایش سفارش ${name}`);
           card.addEventListener("click", (event) => {
             if (event.target.closest(".product-order-action")) return;
             cards.forEach((otherCard) => {
-              if (otherCard !== card)
+              if (otherCard !== card) {
                 otherCard.classList.remove("is-order-visible");
+                otherCard.setAttribute("aria-pressed", "false");
+              }
             });
-            card.classList.toggle("is-order-visible");
+            const isVisible = card.classList.toggle("is-order-visible");
+            card.setAttribute("aria-pressed", String(isVisible));
           });
           card.addEventListener("keydown", (event) => {
             if (event.key !== "Enter" && event.key !== " ") return;
             if (event.target.closest(".product-order-action")) return;
             event.preventDefault();
-            card.classList.toggle("is-order-visible");
+            const isVisible = card.classList.toggle("is-order-visible");
+            card.setAttribute("aria-pressed", String(isVisible));
           });
         });
         render();
+      })();
+    </script>
+    <script>
+      (() => {
+        const menu = document.getElementById("site-menu");
+        const openButton = document.querySelector(".menu-toggle");
+        const closeButton = document.querySelector(".menu-close");
+        const scrim = menu && menu.querySelector(".site-menu-scrim");
+        if (!menu || !openButton || !closeButton) return;
+        openButton.addEventListener("click", () => menu.showModal());
+        let closeTimer;
+        const dismissMenu = () => {
+          if (!menu.open || menu.classList.contains("is-closing")) return;
+          menu.classList.add("is-closing");
+          closeTimer = window.setTimeout(() => menu.close(), 320);
+        };
+        closeButton.addEventListener("click", dismissMenu);
+        scrim.addEventListener("click", dismissMenu);
+        menu.addEventListener("cancel", (event) => {
+          event.preventDefault();
+          dismissMenu();
+        });
+        menu.addEventListener("click", (event) => {
+          if (event.target === menu) dismissMenu();
+        });
+        menu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => menu.close());
+        });
+        menu.addEventListener("close", () => {
+          window.clearTimeout(closeTimer);
+          menu.classList.remove("is-closing");
+          openButton.focus();
+        });
       })();
     </script>
   </body>

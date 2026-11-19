@@ -1717,6 +1717,37 @@ body:has(.about-modal:target) {
   color: inherit;
 }
 
+/* Shared hamburger navigation */
+.menu-toggle { display: grid; width: 46px; height: 46px; align-content: center; justify-items: center; gap: 5px; border: 1px solid rgba(240,205,131,.48); border-radius: 14px; background: linear-gradient(145deg, rgba(201,155,88,.18), rgba(18,8,4,.4)); color: #f6dfb1; cursor: pointer; box-shadow: 0 4px 14px #0003; transition: .2s ease; }
+.menu-toggle:hover, .menu-toggle:focus-visible { border-color: var(--gold-light); background: rgba(201,155,88,.25); outline: 2px solid rgba(240,205,131,.35); outline-offset: 2px; }
+.menu-toggle span { width: 20px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .2s ease; }
+.site-menu { position: fixed; inset: 27px auto 14px max(0px, calc((100vw - 520px) / 2)); width: min(520px, 100vw); height: calc(100dvh - 41px); max-width: none; max-height: calc(100dvh - 41px); margin: 0; padding: 0; overflow: hidden; border: 0; border-radius: 20px; background: transparent; color: var(--cream); box-shadow: none; }
+.site-menu::backdrop { background: transparent; }
+.site-menu-scrim { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; opacity: 1; cursor: default; }
+.site-menu-panel { position: absolute; inset: 0 auto 0 0; width: min(300px, calc(100vw - 36px)); height: 100%; padding: max(26px, env(safe-area-inset-top)) 19px max(22px, env(safe-area-inset-bottom)); overflow-y: auto; border: 1px solid rgba(240,205,131,.28); border-radius: 20px; background: radial-gradient(ellipse at 90% 0%, #492919, #28140d 48%, #1b0e09); box-shadow: none; transform: translateX(-105%); }
+.site-menu[open] .site-menu-panel { animation: drawer-in .42s cubic-bezier(.22,.8,.25,1) both; }
+.site-menu.is-closing .site-menu-panel { animation: drawer-out .32s cubic-bezier(.55,.05,.75,.3) both; }
+@keyframes drawer-in { from { opacity: .6; transform: translateX(-105%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes drawer-out { from { opacity: 1; transform: translateX(0); } to { opacity: .6; transform: translateX(-105%); } }
+.site-menu-head { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid rgba(201,155,88,.25); }
+.menu-kicker { color: var(--gold); font: 600 10px Georgia,serif; letter-spacing: 1.6px; }
+.site-menu-head h2 { margin: 5px 0 0; color: #f8e8c6; font-size: 21px; }
+.menu-close { display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid rgba(240,205,131,.3); border-radius: 50%; background: rgba(0,0,0,.18); color: #f6dfb1; font: 28px/1 Tahoma,sans-serif; cursor: pointer; }
+.menu-close:hover, .menu-close:focus-visible { background: rgba(201,155,88,.25); outline: 2px solid var(--gold-light); }
+.site-menu-links { display: grid; gap: 7px; padding: 14px 0; }
+.site-menu-links a { display: grid; grid-template-columns: 28px 1fr; align-items: center; gap: 11px; padding: 11px 10px; border: 1px solid transparent; border-radius: 14px; color: var(--cream); text-decoration: none; transition: .18s ease; }
+.site-menu-links a:hover, .site-menu-links a:focus-visible { border-color: rgba(201,155,88,.35); background: rgba(201,155,88,.1); outline: none; transform: translateX(-2px); }
+.site-menu-links strong { display: block; }
+.menu-icon { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid rgba(201,155,88,.28); border-radius: 9px; background: rgba(201,155,88,.08); color: var(--gold-light); }
+.menu-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.site-menu-links strong { font-size: 14px; font-weight: 650; }
+.menu-order { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 16px; border: 1px solid rgba(240,205,131,.4); border-radius: 16px; background: linear-gradient(120deg, rgba(115,75,38,.55), rgba(54,31,19,.75)); color: #f6dfb1; text-decoration: none; }
+.menu-order span { color: #dbc7a8; font-size: 11px; }
+.menu-order strong { font-size: 13px; }
+.menu-order strong b { margin-right: 4px; color: var(--gold-light); }
+.menu-order:hover, .menu-order:focus-visible { border-color: var(--gold-light); outline: none; background: linear-gradient(120deg, rgba(150,96,46,.68), rgba(65,36,21,.8)); }
+@media (prefers-reduced-motion: reduce) { .site-menu[open] .site-menu-panel, .site-menu.is-closing .site-menu-panel { animation: none; transform: translateX(0); } .menu-toggle, .menu-toggle span, .site-menu-links a { transition: none; } }
+
 /* Refined storefront header */
 .topbar {
   position: sticky;
@@ -1821,7 +1852,7 @@ body:has(.about-modal:target) {
 }
 
 .products-page .phone-page { min-height: 100vh; }
-.products-page .products-back { display: flex; justify-content: flex-end; padding: 14px 0 0; }
+.products-page .products-back { display: flex; justify-content: flex-start; padding: 12px 0 0; }
 .products-page .products-back a { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 7px 15px; border: 1px solid rgba(240,205,131,.5); border-radius: 999px; background: rgba(201,155,88,.1); color: #f6dfb1; text-decoration: none; font-size: 13px; font-weight: 600; transition: background .2s, border-color .2s; }
 .products-page .products-back a span { font-size: 18px; line-height: 1; }
 .products-page .products-back a:hover, .products-page .products-back a:focus-visible { background: rgba(201,155,88,.24); border-color: #f0cd83; outline: none; }
@@ -1831,8 +1862,9 @@ body:has(.about-modal:target) {
 .products-page .product-modal-close, .products-page .product-modal-backdrop { display: none; }
 @media (max-width: 520px) { .products-page .product-grid { grid-template-columns: minmax(0, 1fr); } }
 
-.products-page .products-back a { width: 42px; min-height: 42px; justify-content: center; padding: 0; border-radius: 50%; }
-.products-page .products-back a svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.products-page .products-back a { width: auto; min-height: 40px; justify-content: center; gap: 9px; padding: 7px 14px; border-radius: 999px; }
+.products-page .products-back a svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.products-page .products-back a span { font-size: 12px; }
 /* Imported product photos from the user's photo folder. */
 .products-page .product-card.imported-product .product-main-image { height: 190px; object-fit: cover; }
 /* Product gallery: compact, touch friendly cards with category chips. */
@@ -1851,6 +1883,8 @@ body:has(.about-modal:target) {
 .products-page .product-search input::placeholder { color: #c6ae91; opacity: 1; }
 .products-page .product-search input:focus { border-color: #f0cd83; box-shadow: 0 0 0 3px rgba(240,205,131,.14); }
 .products-page .product-search > svg { position: absolute; z-index: 1; top: 14px; right: 14px; width: 20px; height: 20px; fill: none; stroke: #d8b77c; stroke-width: 1.8; stroke-linecap: round; pointer-events: none; }
+.products-page .product-guide { display: flex; align-items: center; gap: 9px; margin: -3px 1px 14px; padding: 10px 12px; border: 1px solid rgba(201,155,88,.25); border-radius: 12px; background: rgba(201,155,88,.07); color: #e2cda9; font-size: 11px; line-height: 1.6; }
+.products-page .product-guide svg { flex: 0 0 auto; width: 19px; height: 19px; fill: none; stroke: #f0cd83; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .products-page .search-empty { margin: 16px 0; color: #d8b77c; text-align: center; font-size: 14px; }
 .view-all-products { display: flex; align-items: center; justify-content: center; gap: 10px; width: fit-content; min-width: 145px; margin: 20px auto 2px; padding: 10px 20px; border: 1px solid rgba(240,205,131,.7); border-radius: 999px; background: linear-gradient(135deg, #65401f, #3b2114); color: #fff1ca; text-decoration: none; font-size: 13px; font-weight: 700; box-shadow: 0 5px 16px #0004; transition: transform .2s, background .2s; }
 .view-all-products span, .featured-all-link span { font-size: 18px; line-height: 1; }
