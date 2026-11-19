@@ -26,10 +26,10 @@
         </a>
         <button class="menu-toggle" type="button" aria-label="باز کردن منو" aria-haspopup="dialog" aria-controls="site-menu"><span></span><span></span><span></span></button>
       </header>
-      <dialog class="site-menu" id="site-menu" aria-labelledby="site-menu-title">
-        <button class="site-menu-scrim" type="button" aria-label="بستن منو"></button>
+      <div class="site-menu" id="site-menu" role="dialog" aria-modal="true" aria-labelledby="site-menu-title" hidden>
+        <button class="site-menu-scrim" type="button" aria-label="بستن منو" tabindex="-1"></button>
         <div class="site-menu-panel">
-        <div class="site-menu-head"><div><span class="menu-kicker">CRAFERS AFGHANISTAN</span><h2 id="site-menu-title">از کجا شروع کنیم؟</h2></div><button class="menu-close" type="button" aria-label="بستن منو">×</button></div>
+        <div class="site-menu-head"><div><span class="menu-kicker">CRAFERS AFGHANISTAN</span><h2 id="site-menu-title">منوی اصلی</h2></div><button class="menu-close" type="button" aria-label="بستن منو">×</button></div>
         <nav class="site-menu-links" aria-label="منوی اصلی">
           <a href="index.html"><span class="menu-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg></span><span><strong>صفحهٔ اصلی</strong></span></a>
           <a href="products.html"><span class="menu-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/></svg></span><span><strong>محصولات</strong></span></a>
@@ -39,7 +39,7 @@
         </nav>
         <a class="menu-order" href="https://wa.me/93794370299" target="_blank" rel="noopener noreferrer"><span>برای سفارش آماده‌اید؟</span><strong>سفارش از واتساپ</strong></a>
         </div>
-      </dialog>
+      </div>
 
       <article class="about-page-card">
         <p class="about-page-kicker">دنیای شکلات روسی</p>
@@ -74,29 +74,68 @@
         const closeButton = document.querySelector(".menu-close");
         const scrim = menu && menu.querySelector(".site-menu-scrim");
         if (!menu || !openButton || !closeButton) return;
-        openButton.addEventListener("click", () => menu.showModal());
         let closeTimer;
+        const setMenuPosition = () => {
+          menu.style.top = `${window.scrollY}px`;
+          menu.style.height = `${window.innerHeight}px`;
+        };
+        const openMenu = () => {
+          if (!menu.hidden) return;
+          window.clearTimeout(closeTimer);
+          setMenuPosition();
+          menu.hidden = false;
+          menu.classList.remove("is-closing");
+          menu.classList.add("is-open");
+          openButton.setAttribute("aria-expanded", "true");
+          closeButton.focus();
+        };
+        const finishClosing = () => {
+          menu.hidden = true;
+          menu.classList.remove("is-open", "is-closing");
+          openButton.setAttribute("aria-expanded", "false");
+          openButton.focus();
+        };
+        openButton.setAttribute("aria-expanded", "false");
+        openButton.addEventListener("click", openMenu);
         const dismissMenu = () => {
-          if (!menu.open || menu.classList.contains("is-closing")) return;
+          if (menu.hidden || menu.classList.contains("is-closing")) return;
+          menu.classList.remove("is-open");
           menu.classList.add("is-closing");
-          closeTimer = window.setTimeout(() => menu.close(), 320);
+          closeTimer = window.setTimeout(finishClosing, 320);
         };
         closeButton.addEventListener("click", dismissMenu);
         scrim.addEventListener("click", dismissMenu);
-        menu.addEventListener("cancel", (event) => {
-          event.preventDefault();
+        document.addEventListener("keydown", (event) => {
+          if (menu.hidden) return;
+          if (event.key === "Escape") {
+            event.preventDefault();
+            dismissMenu();
+            return;
+          }
+          if (event.key !== "Tab") return;
+          const focusable = [...menu.querySelectorAll('a[href], button:not([disabled])')].filter((item) => item !== scrim);
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        });
+        document.addEventListener("click", (event) => {
+          if (menu.hidden || menu.contains(event.target) || openButton.contains(event.target)) return;
           dismissMenu();
         });
-        menu.addEventListener("click", (event) => {
-          if (event.target === menu) dismissMenu();
-        });
         menu.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", () => menu.close());
+          link.addEventListener("click", () => {
+            window.clearTimeout(closeTimer);
+            finishClosing();
+          });
         });
-        menu.addEventListener("close", () => {
-          window.clearTimeout(closeTimer);
-          menu.classList.remove("is-closing");
-          openButton.focus();
+        window.addEventListener("resize", () => {
+          if (!menu.hidden) setMenuPosition();
         });
       })();
     </script>
