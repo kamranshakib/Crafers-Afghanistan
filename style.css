@@ -2337,3 +2337,137 @@ body.home-site { align-items: center; padding: 0; background: #120a07; }
 .about-page-actions .modal-contact { margin: 0; }
 .about-page-back { color: #d8b876; font-size: 13px; text-decoration: none; }
 .about-page-back:hover, .about-page-back:focus-visible { color: #fff0ce; text-decoration: underline; }
+
+/* Keep the 520px storefront composition intact on narrow phones. */
+@media (min-width: 300px) and (max-width: 520px) {
+  .phone-page {
+    container-type: inline-size;
+    --store-gutter: clamp(8px, 4.23vw, 22px);
+    width: min(100%, 520px);
+    padding-inline: var(--store-gutter);
+  }
+  .home-page {
+    --home-gutter: clamp(8px, 4.23vw, 22px);
+    padding: 0 var(--home-gutter) 24px;
+    border: 1px solid #68482e;
+    border-radius: clamp(16px, 4.62vw, 24px);
+    box-shadow: 0 12px 38px #0008;
+  }
+  .home-page .topbar {
+    height: clamp(44px, 12.3vw, 64px);
+    margin: 0 calc(-1 * var(--home-gutter)) clamp(7px, 2.3vw, 12px);
+    padding: 5px clamp(5px, 1.92vw, 10px);
+    gap: clamp(2px, 1.35vw, 7px);
+  }
+  .home-page .home-desktop-nav,
+  .home-page .home-tools,
+  .phone-page:not(.home-page) .home-desktop-nav,
+  .phone-page:not(.home-page) .home-tools { display: flex; }
+  .home-page .home-desktop-nav,
+  .phone-page:not(.home-page) .home-desktop-nav {
+    flex: 1 1 0;
+    min-width: 0;
+    gap: clamp(1px, .96vw, 5px);
+    white-space: nowrap;
+  }
+  .home-page .home-desktop-nav a,
+  .phone-page:not(.home-page) .home-desktop-nav a {
+    padding: clamp(3px, 1.35vw, 7px) clamp(1px, .58vw, 3px);
+    font-size: clamp(7px, 1.92vw, 10px);
+  }
+  .home-page .home-desktop-nav a.is-current,
+  .phone-page:not(.home-page) .home-desktop-nav a.is-current {
+    padding: clamp(4px, 1.54vw, 8px) clamp(5px, 1.92vw, 10px);
+  }
+  .home-page .brand,
+  .phone-page:not(.home-page) .brand {
+    flex: 0 1 auto;
+    min-width: 0;
+    gap: clamp(3px, 1.35vw, 7px);
+    padding: 2px;
+  }
+  .home-page .brand-mark,
+  .phone-page:not(.home-page) .brand-mark {
+    flex: 0 0 auto;
+    width: clamp(28px, 8.85vw, 46px);
+    height: clamp(28px, 8.85vw, 46px);
+  }
+  .home-page .brand-copy,
+  .phone-page:not(.home-page) .brand-copy {
+    min-width: 0;
+    padding-left: clamp(4px, 1.35vw, 7px);
+  }
+  .home-page .brand-copy strong,
+  .phone-page:not(.home-page) .brand-copy strong {
+    font-size: clamp(10px, 3.08vw, 16px);
+    white-space: nowrap;
+  }
+  .home-page .brand-copy small,
+  .phone-page:not(.home-page) .brand-copy small {
+    margin-top: 2px;
+    font-size: clamp(6px, 1.73vw, 9px);
+    white-space: nowrap;
+  }
+  .home-page .home-tools,
+  .phone-page:not(.home-page) .home-tools { flex: 0 0 auto; gap: clamp(2px, .96vw, 5px); }
+  .home-page .home-tool-link,
+  .phone-page:not(.home-page) .home-tool-link {
+    width: clamp(23px, 6.54vw, 34px);
+    height: clamp(23px, 6.54vw, 34px);
+  }
+  .home-page .home-tool-link svg,
+  .phone-page:not(.home-page) .home-tool-link svg {
+    width: clamp(13px, 3.65vw, 19px);
+    height: clamp(13px, 3.65vw, 19px);
+  }
+  .home-page .menu-toggle,
+  .phone-page:not(.home-page) .menu-toggle { display: none; }
+  .phone-page:not(.home-page) .topbar {
+    height: clamp(44px, 12.3vw, 64px);
+    margin: 0 calc(-1 * var(--store-gutter)) clamp(8px, 3.46vw, 18px);
+    padding: 5px clamp(5px, 1.92vw, 10px);
+    gap: clamp(2px, 1.35vw, 7px);
+  }
+  .home-page .hero {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-height: clamp(205px, 50vw, 260px);
+    padding: clamp(12px, 3.46vw, 18px) clamp(8px, 3.85vw, 20px);
+    border-radius: clamp(13px, 3.46vw, 18px);
+  }
+  .home-page .hero-copy { grid-column: 1; min-width: 0; max-width: 100%; }
+  .home-page .eyebrow { margin-bottom: clamp(4px, 1.35vw, 7px); font-size: clamp(8px, 2.3vw, 12px); gap: 3px; }
+  .home-page .eyebrow span { width: clamp(15px, 5vw, 26px); }
+  .home-page .hero h1 { font-size: clamp(18px, 5.77vw, 30px); line-height: 1.25; }
+  .home-page .home-tagline { margin-bottom: clamp(4px, 1.35vw, 7px); font-size: clamp(11px, 3.46vw, 18px); line-height: 1.4; }
+  .home-page .hero .intro { margin-bottom: clamp(6px, 2.3vw, 12px); font-size: clamp(8px, 2.3vw, 12px); line-height: 1.5; }
+  .home-page .about-button { min-width: clamp(95px, 25vw, 130px); min-height: clamp(32px, 8.08vw, 42px); gap: 4px; padding: 4px clamp(7px, 2.88vw, 15px); font-size: clamp(10px, 3.08vw, 16px); }
+  .home-page .about-button b { font-size: clamp(13px, 3.85vw, 20px); }
+  .home-benefits { grid-template-columns: repeat(4, minmax(0, 1fr)); min-height: clamp(34px, 9.23vw, 48px); margin: 0 auto clamp(6px, 1.92vw, 10px); padding: clamp(2px, .77vw, 4px); }
+  .home-benefits > div { justify-content: center; gap: clamp(1px, .58vw, 3px); padding: 3px 1px; font-size: clamp(6px, 1.92vw, 10px); line-height: 1.25; white-space: normal; }
+  .home-benefits > div + div { border-right: 1px solid rgba(226,180,91,.5); }
+  .home-benefits > div:nth-child(n+3) { border-top: 0; }
+  .home-benefits svg { width: clamp(12px, 4.23vw, 22px); height: clamp(12px, 4.23vw, 22px); }
+  .home-page .featured-products { padding: clamp(14px, 4.23vw, 22px) clamp(2px, .77vw, 4px); }
+  .home-page .featured-products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(5px, 1.92vw, 10px); }
+  .home-page .featured-products .section-heading { gap: clamp(7px, 2.3vw, 12px); }
+  .home-page .featured-products .section-heading span { width: 25%; }
+  .home-page .featured-products .section-heading h2 { font-size: clamp(14px, 4.42vw, 23px); white-space: nowrap; }
+  .products-page .products-section { padding: clamp(12px, 3.85vw, 20px) clamp(8px, 3.46vw, 18px) 32px; }
+  .products-page .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(6px, 2.7vw, 14px); }
+  .products-page .product-card { border-radius: clamp(12px, 3.85vw, 20px); }
+  .products-page .product-card .product-main-image { height: clamp(112px, 39.4vw, 205px); padding: clamp(5px, 2.3vw, 12px); }
+  .products-page .product-card strong { min-height: clamp(40px, 11.15vw, 58px); padding: clamp(6px, 2.5vw, 13px) 5px 2px; font-size: clamp(9px, 2.88vw, 15px); }
+  .products-page .product-card small { min-height: clamp(30px, 8.46vw, 44px); padding: 2px clamp(5px, 2.7vw, 14px) clamp(7px, 2.88vw, 15px); font-size: clamp(7px, 2.3vw, 12px); line-height: 1.55; }
+  .products-page .product-search { margin-bottom: clamp(8px, 3.08vw, 16px); }
+  .products-page .product-search input { height: clamp(34px, 9.23vw, 48px); padding-right: clamp(32px, 8.46vw, 44px); font-size: clamp(10px, 2.7vw, 14px); }
+  .products-page .product-search > svg { top: 50%; right: clamp(9px, 2.7vw, 14px); width: clamp(15px, 3.85vw, 20px); height: clamp(15px, 3.85vw, 20px); transform: translateY(-50%); }
+  .products-page .product-guide { gap: clamp(5px, 1.73vw, 9px); padding: clamp(6px, 1.92vw, 10px) clamp(7px, 2.3vw, 12px); font-size: clamp(8px, 2.12vw, 11px); }
+  .products-page .product-guide svg { width: clamp(14px, 3.65vw, 19px); height: clamp(14px, 3.65vw, 19px); }
+  .products-page .product-card .product-order-action { min-height: clamp(32px, 8.08vw, 42px); padding: 5px 8px; font-size: clamp(8px, 2.3vw, 12px); }
+  .products-page .product-card .product-order-action svg { width: clamp(19px, 4.8vw, 25px); height: clamp(19px, 4.8vw, 25px); }
+  .about-page-card { margin-top: clamp(14px, 5vw, 26px); padding: clamp(14px, 5.38vw, 28px) clamp(12px, 4.23vw, 22px); border-radius: clamp(14px, 3.85vw, 20px); }
+  .about-page-card h1 { font-size: clamp(19px, 4.8vw, 25px); }
+  .about-page-intro { font-size: clamp(12px, 2.88vw, 15px); }
+  .about-page-services { font-size: clamp(12px, 2.88vw, 15px); }
+  .section-heading h2 { font-size: clamp(14px, 4.42vw, 23px); }
+}
