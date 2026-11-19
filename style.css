@@ -2471,3 +2471,23 @@ body.home-site { align-items: center; padding: 0; background: #120a07; }
   .about-page-services { font-size: clamp(12px, 2.88vw, 15px); }
   .section-heading h2 { font-size: clamp(14px, 4.42vw, 23px); }
 }
+
+@media (min-width: 300px) and (max-width: 520px) {
+  body.products-page main.phone-page .products-section .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(6px, 2.7vw, 14px);
+  }
+  body.products-page main.phone-page .products-section .product-card .product-main-image {
+    height: clamp(112px, 39.4vw, 205px);
+    padding: clamp(5px, 2.3vw, 12px);
+    object-fit: contain;
+  }
+  body.products-page main.phone-page .products-section .product-card strong {
+    min-height: clamp(40px, 11.15vw, 58px);
+    font-size: clamp(9px, 2.88vw, 15px);
+  }
+  body.products-page main.phone-page .products-section .product-card small {
+    min-height: clamp(30px, 8.46vw, 44px);
+    font-size: clamp(7px, 2.3vw, 12px);
+  }
+}
