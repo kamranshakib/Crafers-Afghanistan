@@ -2001,6 +2001,7 @@ body:has(.about-modal:target) {
   box-shadow: 0 10px 25px rgba(12, 5, 2, .36), inset 0 1px 0 rgba(255, 224, 169, .12);
   transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
 }
+.products-page .product-card[hidden] { display: none; }
 .products-page .product-card:hover,
 .products-page .product-card:focus-visible {
   transform: translateY(-4px);
